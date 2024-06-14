@@ -660,12 +660,12 @@ if __name__ == "__main__":
                  "gt_ext": ".png",
                  "cache_dir":"../DIS5K-Cache/DIS-TE4"}
     ### test your own dataset
-    dataset_demo = {"name": "your-dataset",
-                 "im_dir": "../your-dataset/im",
-                 "gt_dir": "",
+    dataset_demo = {"name": "DIS_CUSTOM",
+                 "im_dir": "../DIS_CUSTOM/im",
+                 "gt_dir": "../DIS_CUSTOM/gt",
                  "im_ext": ".jpg",
-                 "gt_ext": "",
-                 "cache_dir":"../your-dataset/cache"}
+                 "gt_ext": ".png",
+                 "cache_dir":"../DIS_CUSTOM/cache"}
 
     train_datasets = [dataset_tr] ## users can create mutiple dictionary for setting a list of datasets as training set
     # valid_datasets = [dataset_vd] ## users can create mutiple dictionary for setting a list of datasets as vaidation sets or inference sets
@@ -685,7 +685,7 @@ if __name__ == "__main__":
     if hypar["mode"] == "train":
         hypar["valid_out_dir"] = "" ## for "train" model leave it as "", for "valid"("inference") mode: set it according to your local directory
         hypar["model_path"] ="../saved_models/IS-Net-test" ## model weights saving (or restoring) path
-        hypar["restore_model"] = "" ## name of the segmentation model weights .pth for resume training process from last stop or for the inferencing
+        hypar["restore_model"] = "isnet.pth" ## name of the segmentation model weights .pth for resume training process from last stop or for the inferencing
         hypar["start_ite"] = 0 ## start iteration for the training, can be changed to match the restored training process
         hypar["gt_encoder_model"] = ""
     else: ## configure the segmentation output path and the to-be-used model weights path
@@ -717,7 +717,7 @@ if __name__ == "__main__":
     print("building model...")
     hypar["model"] = ISNetDIS() #U2NETFASTFEATURESUP()
     hypar["early_stop"] = 20 ## stop the training when no improvement in the past 20 validation periods, smaller numbers can be used here e.g., 5 or 10.
-    hypar["model_save_fre"] = 2000 ## valid and save model weights every 2000 iterations
+    hypar["model_save_fre"] = 1000 ## valid and save model weights every 2000 iterations
 
     hypar["batch_size_train"] = 8 ## batch size for training
     hypar["batch_size_valid"] = 1 ## batch size for validation and inferencing
